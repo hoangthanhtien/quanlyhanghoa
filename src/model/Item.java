@@ -4,12 +4,12 @@ public class Item {
     private String item_no;
     private String item_name;
     private ItemClass item_class;
-    private int barcode;
+    private String barcode;
 
     public Item() {
     }
 
-    public Item(String item_no, String item_name, ItemClass item_class, int barcode) {
+    public Item(String item_no, String item_name, ItemClass item_class, String barcode) {
         this.item_no = item_no;
         this.item_name = item_name;
         this.item_class = item_class;
@@ -28,7 +28,7 @@ public class Item {
         return item_class;
     }
 
-    public int getBarcode() {
+    public String getBarcode() {
         return barcode;
     }
 
@@ -44,7 +44,7 @@ public class Item {
         this.item_class = item_class;
     }
 
-    public void setBarcode(int barcode) {
+    public void setBarcode(String barcode) {
         this.barcode = barcode;
     }
 }

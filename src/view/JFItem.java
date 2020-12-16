@@ -1,5 +1,6 @@
 package view;
 import controller.ItemController;
+import model.Item;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -50,6 +51,11 @@ public class JFItem {
         addButton.setBounds(300, 80, 200, 30);
         panel.add(addButton);
 
+        JTable table = new JTable(ItemController.getItemDataToTable());
+        table.setBounds(200,200,500,300);
+        JScrollPane sp = new JScrollPane(table);
+        panel.add(table);
+
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -58,6 +64,10 @@ public class JFItem {
                 boolean inserted = ItemController.createNewItem(itemName,itemBarcode);
                 if(inserted){
                     JOptionPane.showMessageDialog(panel,"Thêm mới hàng hóa thành công");
+                    JTable table = new JTable(ItemController.getItemDataToTable());
+                    table.setBounds(200,200,500,300);
+                    JScrollPane sp = new JScrollPane(table);
+                    panel.add(table);
                 }else{
                     JOptionPane.showMessageDialog(panel,"Thêm mới hàng hóa thất bại");
                 }
