@@ -23,15 +23,37 @@ public class IvtUserController {
         }
         return false;
     }
-    public static ArrayList<IvtUser> getAllUser(){
-        ArrayList<IvtUser> list = new ArrayList<>();
-
+    public static boolean checkEmailExists(String email){
         Connection conn = DBConnection.getConnection();
         try {
             Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM ivtuser WHERE email='"+email+"'");
+            while (rs.next()){
+                return true;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+    public static void signUp(String username, String email, String password){
+        Connection conn = DBConnection.getConnection();
+        try {
+            Statement st = conn.createStatement();
+            if(username == null){
+                username = email;
+            }
+            int rs = st.executeUpdate("insert into ivtuser(username, email, password) values('" + username + "','" + email + "','"+password+"')");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+    public static ArrayList<IvtUser> getAllUser(){
+        ArrayList<IvtUser> list = new ArrayList<>();
+        Connection conn = DBConnection.getConnection();
+        try { Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM ivtuser");
-            while(rs.next()){
-                int id = rs.getInt("id");
+            while(rs.next()){ int id = rs.getInt("id");
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 String email = rs.getString("email");

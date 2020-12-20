@@ -26,7 +26,8 @@ public class ItemController {
     }
     public static DefaultTableModel getItemDataToTable(){
         Connection conn = DBConnection.getConnection();
-        Object[][] rowData = new Object[20][3];
+        int record_num = ItemController.countItemRecord();
+        Object[][] rowData = new Object[record_num][3];
         Object columnNames[] = {"ID", "Tên hàng hóa", "Mã vạch"};
         try {
             int i = 0;
@@ -44,5 +45,35 @@ public class ItemController {
         }
         DefaultTableModel tableModel  = new DefaultTableModel(rowData, columnNames);
         return tableModel;
+    }
+    public static int countItemRecord(){
+        Connection conn = DBConnection.getConnection();
+        int record_num = 0;
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("select count(*) from item");
+            while(rs.next()){
+                record_num = rs.getInt("count");
+            }
+            return record_num;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return record_num;
+    }
+    public static int getLastItemId(){
+        Connection conn = DBConnection.getConnection();
+        int last_item_id = 0;
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("select * from item");
+            while(rs.next()){
+                last_item_id = rs.getInt("item_no");
+            }
+            return last_item_id;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return last_item_id;
     }
 }

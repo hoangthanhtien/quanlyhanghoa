@@ -3,6 +3,7 @@ import controller.ItemController;
 import model.Item;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -52,22 +53,26 @@ public class JFItem {
         panel.add(addButton);
 
         JTable table = new JTable(ItemController.getItemDataToTable());
-        table.setBounds(200,200,500,300);
+        table.setBounds(0,0,500,300);
         JScrollPane sp = new JScrollPane(table);
-        panel.add(table);
+        sp.setBounds(150,200,550,350);
+        panel.add(sp);
 
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int item_no = ItemController.getLastItemId() + 1;
                 String itemName = itemNameText.getText();
                 String itemBarcode = itemBarcodeText.getText();
                 boolean inserted = ItemController.createNewItem(itemName,itemBarcode);
                 if(inserted){
                     JOptionPane.showMessageDialog(panel,"Thêm mới hàng hóa thành công");
-                    JTable table = new JTable(ItemController.getItemDataToTable());
-                    table.setBounds(200,200,500,300);
-                    JScrollPane sp = new JScrollPane(table);
-                    panel.add(table);
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+                    model.addRow(new Object[]{
+                           item_no,
+                           itemName,
+                           itemBarcode
+                    });
                 }else{
                     JOptionPane.showMessageDialog(panel,"Thêm mới hàng hóa thất bại");
                 }

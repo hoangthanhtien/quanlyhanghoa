@@ -92,5 +92,23 @@ public class JFUser {
             }
         });
         panel.add(loginButton);
+        // Creating SignUp button
+        JButton signUpButton = new JButton("Sign Up");
+        signUpButton.setBounds(150,90,100,30);
+        signUpButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String password = passwordText.getText();
+                String email = userText.getText();
+                String userName = null;
+                boolean emailExisted = IvtUserController.checkEmailExists(email);
+                if(emailExisted == true){
+                   JOptionPane.showMessageDialog(panel, "Đăng ký không thành công, email này đã tồn tại");
+                }
+                IvtUserController.signUp(userName, email, password);
+                JOptionPane.showMessageDialog(panel, "Đăng ký thành công");
+            }
+        });
+        panel.add(signUpButton);
     }
 }
