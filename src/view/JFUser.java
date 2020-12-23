@@ -83,9 +83,10 @@ public class JFUser {
                 String email = userText.getText();
                 boolean logedIn = IvtUserController.login(email, password);
                 if(logedIn){
-                    System.out.println("OK");
-                    JFItem itemView = new JFItem();
-                    itemView.viewItem();
+//                    JFItem itemView = new JFItem();
+//                    itemView.viewItem();
+                    JFHome homeView = new JFHome();
+                    homeView.JFHomeView();
                 }else{
                     JOptionPane.showMessageDialog(panel,"Mật khẩu hoặc tài khoản không chính xác");
                 }

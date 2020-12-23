@@ -2,99 +2,99 @@ package model;
 
 public class Price {
     private int price_type; // 1 = giaban, 2 = giamua, 3 = giavon
-    private int price_before_vat;
-    private int vat; // Theo %
-    private int price_after_vat;
-    private Item item;
-    private PriceList priceList;
-    private int active;
-    private int created_at;
-    private Supplier supplier;
+    private float price_before_vat;
+    private float vat; // Theo %
+    private float price_after_vat;
+    private int item_no;
+    private int price_id;
+    private int active; // 0.deactive 1.active
+    private int supplier_id;
+    private int price_list_id;
 
     public Price() {
     }
 
-    public Price(int price_type, int price_before_vat, int vat, int price_after_vat, Item item, PriceList priceList, int active, int created_at, Supplier supplier) {
+    public Price(int price_type, float price_before_vat, float vat, float price_after_vat, int item_no, int price_id, int active, int supplier_id, int price_list_id) {
         this.price_type = price_type;
         this.price_before_vat = price_before_vat;
         this.vat = vat;
         this.price_after_vat = price_after_vat;
-        this.item = item;
-        this.priceList = priceList;
+        this.item_no = item_no;
+        this.price_id = price_id;
         this.active = active;
-        this.created_at = created_at;
-        this.supplier = supplier;
+        this.supplier_id = supplier_id;
+        this.price_list_id = price_list_id;
     }
 
     public int getPrice_type() {
         return price_type;
     }
 
-    public int getPrice_before_vat() {
+    public float getPrice_before_vat() {
         return price_before_vat;
     }
 
-    public int getVat() {
+    public float getVat() {
         return vat;
     }
 
-    public int getPrice_after_vat() {
+    public float getPrice_after_vat() {
         return price_after_vat;
     }
 
-    public Item getItem() {
-        return item;
+    public int getItem_no() {
+        return item_no;
     }
 
-    public PriceList getPriceList() {
-        return priceList;
+    public int getPrice_id() {
+        return price_id;
     }
 
     public int getActive() {
         return active;
     }
 
-    public int getCreated_at() {
-        return created_at;
+    public int getSupplier_id() {
+        return supplier_id;
     }
 
-    public Supplier getSupplier() {
-        return supplier;
+    public int getPrice_list_id() {
+        return price_list_id;
     }
 
     public void setPrice_type(int price_type) {
         this.price_type = price_type;
     }
 
-    public void setPrice_before_vat(int price_before_vat) {
+    public void setPrice_before_vat(float price_before_vat) {
         this.price_before_vat = price_before_vat;
     }
 
-    public void setVat(int vat) {
+    public void setVat(float vat) {
         this.vat = vat;
     }
 
-    public void setPrice_after_vat(int price_after_vat) {
+    public void setPrice_after_vat(float price_after_vat) {
         this.price_after_vat = price_after_vat;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setItem_no(int item_no) {
+        this.item_no = item_no;
     }
 
-    public void setPriceList(PriceList priceList) {
-        this.priceList = priceList;
+    public void setPrice_id(int price_id) {
+        this.price_id = price_id;
     }
 
     public void setActive(int active) {
         this.active = active;
     }
 
-    public void setCreated_at(int created_at) {
-        this.created_at = created_at;
+    public void setSupplier_id(int supplier_id) {
+        this.supplier_id = supplier_id;
     }
 
-    public void setSupplier(Supplier supplier) {
-        this.supplier = supplier;
+    public void setPrice_list_id(int price_list_id) {
+        this.price_list_id = price_list_id;
     }
 }

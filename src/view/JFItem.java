@@ -8,19 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class JFItem {
-//    public static void main(String[] args) {
-//        JFrame frame = new JFrame("Quản lý hàng hóa");
-//        frame.setSize(800, 700);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        JPanel panel = new JPanel();
-//        frame.add(panel);
-//        placeComponents(panel);
-//        frame.setVisible(true);
-//    }
     public static void viewItem() {
         JFrame frame = new JFrame("Quản lý hàng hóa");
         frame.setSize(800, 700);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = new JPanel();
         frame.add(panel);
         placeComponents(panel);
