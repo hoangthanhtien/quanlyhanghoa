@@ -14,7 +14,6 @@ public class JFPriceList {
     public static void viewPriceList() {
         JFrame frame = new JFrame("Quản lý bảng giá");
         frame.setSize(800, 700);
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = new JPanel();
         frame.add(panel);
         placeComponents(panel);
@@ -26,7 +25,7 @@ public class JFPriceList {
         JLabel priceListNameLabel= new JLabel("Tên bảng giá");
         priceListNameLabel.setBounds(10,20,200,25);
         panel.add(priceListNameLabel);
-        System.out.println("Tao nut pricelist");
+
         JTextField priceListNameText = new JTextField("");
         priceListNameText.setBounds(150, 20, 600, 25);
         panel.add(priceListNameText);
@@ -48,6 +47,8 @@ public class JFPriceList {
                  DefaultTableModel tblmodel = (DefaultTableModel)table.getModel();
                  String price_list_id = tblmodel.getValueAt(table.getSelectedRow(), 0).toString();
                  System.out.println("Id Pricelist " + price_list_id);
+                 JFPrice jfPrice = new JFPrice();
+                 jfPrice.viewPrice(price_list_id);
             }
 
             @Override
