@@ -31,6 +31,21 @@ public class PriceList {
         }
         return false;
     }
+    public static String getPriceListNameById(int price_list_id){
+        Connection conn = DBConnection.getConnection();
+        String price_list_name = "";
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("select * from pricelist where price_list_id="+price_list_id+"");
+            while(rs.next()){
+                price_list_name = rs.getString("price_list_name");
+            }
+            return price_list_name;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return price_list_name;
+    }
     public static DefaultTableModel getPriceListDataToTable(){
         Connection conn = DBConnection.getConnection();
         int record_num = PriceList.countPriceListRecord();

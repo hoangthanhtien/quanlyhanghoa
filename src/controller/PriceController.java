@@ -20,20 +20,41 @@ public class PriceController {
         }
         return false;
     }
-    public static DefaultTableModel getPriceDataToTable(){
+    public static DefaultTableModel getPriceDataToTable(int price_list_id){
         Connection conn = DBConnection.getConnection();
         int record_num = PriceController.countPriceRecord();
-        Object[][] rowData = new Object[record_num][4];
-        Object columnNames[] = {"ID", "Tên hàng hóa", "Giá trước vat", "Giá sau vat","" };
+        Object[][] rowData = new Object[record_num][9];
+        Object columnNames[] = {"ID", "Tên hàng hóa", "Giá trước vat", "Vat", "Giá sau vat","Nhà cung cấp", "Bảng giá", "Loại giá", "Hiệu lực" };
         try {
             int i = 0;
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("select * from supplier");
+            ResultSet rs = st.executeQuery("select * from price where price_list_id="+price_list_id+"");
             while(rs.next()){
-                rowData[i][0] = rs.getInt("supplier_id");
-                rowData[i][1] = rs.getString("supplier_name");
-                rowData[i][2] = rs.getString("supplier_phone");
-                rowData[i][3] = rs.getString("supplier_address");
+                int item_no = rs.getInt("item_no");
+                int supplier_id = rs.getInt("supplier_id");
+                int price_type = rs.getInt("price_type");
+                int active = rs.getInt("active");
+                rowData[i][0] = rs.getInt("price_id");
+                rowData[i][1] = ItemController.getItemNameById(item_no);
+                rowData[i][2] = rs.getFloat("price_before_vat");
+                rowData[i][3] = rs.getFloat("vat");
+                rowData[i][4] = rs.getFloat("price_after_vat");
+                rowData[i][5] = SupplierController.getSupplierNameById(supplier_id);
+                rowData[i][6] = PriceList.getPriceListNameById(price_list_id);
+                if(price_type == 1){
+                   rowData[i][7] = "Giá bán";
+                }else if(price_type == 2){
+                    rowData[i][7] = "Giá mua";
+                }else{
+                    rowData[i][7] = "Không rõ";
+                }
+                if(active == 0){
+                    rowData[i][8] = "Không";
+                }else if(active == 1){
+                   rowData[i][8] = "Có";
+                }else{
+                    rowData[i][8] = "Không rõ";
+                }
                 i++;
             }
             conn.close();

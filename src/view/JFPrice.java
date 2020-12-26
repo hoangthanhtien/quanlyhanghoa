@@ -1,8 +1,12 @@
 package view;
 
+import controller.ItemController;
 import controller.PriceController;
+import controller.PriceList;
+import controller.SupplierController;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.channels.FileLock;
@@ -84,36 +88,59 @@ public class JFPrice {
         activeButtonGroup.add(deActiveButton);
 
         JButton addPriceButton = new JButton("Thêm giá");
-        addPriceButton.setBounds(300,300, 200, 30);
+        addPriceButton.setBounds(300,210, 200, 30);
         panel.add(addPriceButton);
 
+        JTable table = new JTable(PriceController.getPriceDataToTable(Integer.parseInt(price_list_id)));
+        table.setBounds(0,0,500,300);
+        JScrollPane sp = new JScrollPane(table);
+        sp.setBounds(150,250,550,350);
+        panel.add(sp);
 
         addPriceButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int price_type = 0;
+                String price_type_string = "";
                 if(giaBanButton.isSelected()){
                     price_type = 1;
+                    price_type_string = "Giá bán";
                 }else if(giaMuaButton.isSelected()){
                     price_type = 2;
+                    price_type_string = "Giá mua";
                 }else{
                     JOptionPane.showMessageDialog(panel,"Bạn phải chọn loại giá mua hoặc bán");
                 }
                 int active;
+                String active_string = "";
                 if(deActiveButton.isSelected()){
                     active = 0;
+                    active_string = "Không";
                 }else{
                     active = 1;
+                    active_string = "Có";
                 }
                 float price_before_vat = Float.parseFloat(priceBFVatText.getText());
                 float vat = Float.parseFloat(vatText.getText());
-                float price_after_vat = price_before_vat + (price_before_vat * vat);
+                float price_after_vat = price_before_vat + (price_before_vat * (vat/100));
                 int item_no = Integer.parseInt(itemNoText.getText());
                 int supplier_id = Integer.parseInt(supplierIdText.getText());
                 int priceListId = Integer.parseInt(price_list_id);
                 boolean createNewPrice = PriceController.createNewPrice(price_type, price_before_vat, vat, price_after_vat, item_no, active, supplier_id, priceListId);
                 if(createNewPrice == true){
                     JOptionPane.showMessageDialog(panel,"Thêm giá mới thành công");
+                    DefaultTableModel model = (DefaultTableModel) table.getModel();
+                    model.addRow(new Object[]{
+                            PriceController.getLastPriceId(),
+                            ItemController.getItemNameById(item_no),
+                            price_before_vat,
+                            vat,
+                            price_after_vat,
+                            SupplierController.getSupplierNameById(supplier_id),
+                            PriceList.getPriceListNameById(priceListId),
+                            price_type_string,
+                            active_string
+                    });
                 }else{
                     JOptionPane.showMessageDialog(panel, "Thêm giá mới thất bại :((");
                 }

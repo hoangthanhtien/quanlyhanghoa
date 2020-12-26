@@ -3,6 +3,7 @@ package controller;
 import com.company.DBConnection;
 import model.Item;
 
+import javax.swing.plaf.nimbus.State;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -23,6 +24,21 @@ public class ItemController {
             throwables.printStackTrace();
         }
         return false;
+    }
+    public static String getItemNameById(int item_no){
+        Connection conn = DBConnection.getConnection();
+        String item_name = "";
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("select * from item where item_no="+item_no+"");
+            while(rs.next()){
+               item_name = rs.getString("item_name");
+            }
+            return item_name;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return item_name;
     }
     public static DefaultTableModel getItemDataToTable(){
         Connection conn = DBConnection.getConnection();

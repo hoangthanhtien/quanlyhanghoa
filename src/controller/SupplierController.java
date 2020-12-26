@@ -23,6 +23,21 @@ public class SupplierController {
         }
         return false;
     }
+    public static String getSupplierNameById(int supplier_id){
+        Connection conn = DBConnection.getConnection();
+        String supplier_name = "";
+        try {
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("select * from supplier where supplier_id="+supplier_id+"");
+            while(rs.next()){
+                supplier_name = rs.getString("supplier_name");
+            }
+            return supplier_name;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return supplier_name;
+    }
     public static DefaultTableModel getSupplierDataToTable(){
         Connection conn = DBConnection.getConnection();
         int record_num = ItemController.countItemRecord();
