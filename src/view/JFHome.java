@@ -29,7 +29,7 @@ public class JFHome {
             }
         });
 //        Quan ly gia
-        JButton priceListButton = new JButton("Bảng giá");
+        JButton priceListButton = new JButton("Cài đặt bảng giá");
         priceListButton.setBounds(20, 70, 360, 30);
         panel.add(priceListButton);
         priceListButton.addActionListener(new ActionListener() {
@@ -39,7 +39,7 @@ public class JFHome {
                 jfPriceList.viewPriceList();
             }
         });
-//        Quan ly item_class
+
 //        Quan ly nha cung cap
         JButton supplierButton = new JButton("Nhà cung cấp");
         supplierButton.setBounds(20, 120, 360, 30);
@@ -49,6 +49,39 @@ public class JFHome {
             public void actionPerformed(ActionEvent e) {
                 JFSupplier jfSupplier = new JFSupplier();
                 jfSupplier.viewSupplierView();
+            }
+        });
+//        Quan ly item_class
+        JButton itemClassButton = new JButton("Nhóm hàng hóa");
+        itemClassButton.setBounds(20, 170 , 360, 30);
+        panel.add(itemClassButton);
+        itemClassButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFItemClass jfItemClass = new JFItemClass();
+                jfItemClass.viewItemClass();
+            }
+        });
+//        Bang gia ban hien hanh
+        JButton itemCurrentSalePriceButton = new JButton("Bảng giá bán hiện hành");
+        itemCurrentSalePriceButton.setBounds(20, 220 , 360, 30);
+        panel.add(itemCurrentSalePriceButton);
+        itemCurrentSalePriceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFCurrentPrice jfCurrentPrice = new JFCurrentPrice();
+                jfCurrentPrice.viewCurrentPrice(1);
+            }
+        });
+//
+        JButton itemCurrentPurchasePriceButton = new JButton("Bảng giá mua hiện hành");
+        itemCurrentPurchasePriceButton.setBounds(20, 270 , 360, 30);
+        panel.add(itemCurrentPurchasePriceButton);
+        itemCurrentPurchasePriceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFCurrentPrice jfCurrentPrice = new JFCurrentPrice();
+                jfCurrentPrice.viewCurrentPrice(2);
             }
         });
     }
